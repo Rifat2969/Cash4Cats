@@ -1,0 +1,10 @@
+{
+  "hello": "¡Hola!",
+  "welcome": "Bienvenido a Cash4Cats. Inicie sesión en su cuenta para continuar.",
+  "email": "Tu dirección de correo electrónico",
+  "password": "Contraseña",
+  "keepLoggedIn": "Recuérdame",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "login": "Iniciar sesión",
+  "selectCountry": "Seleccionar país"
+}
