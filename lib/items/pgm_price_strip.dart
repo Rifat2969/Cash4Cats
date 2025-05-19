@@ -26,6 +26,7 @@ class PgmPriceStrip extends StatelessWidget {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const PgmPrices()));
                     },
                     child: Container(
+                      padding: EdgeInsets.only(bottom: 2),
                       height: 8.height,
                       width: 25.width,
                       margin: const EdgeInsets.all(10),
