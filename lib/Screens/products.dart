@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cash4cats/Screens/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,14 +52,14 @@ class _ProductsState extends State<Products> {
     return Scaffold(
       body: SafeArea(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TopBar(cart: cart),
-              const SizedBox(height: 40),
+              SizedBox(height: 3.height),
               _searchBar(),
-              SizedBox(height: 3.2.height),
+              SizedBox(height: 1.72.height),
               Text(
                 "All Products for ${widget.category.name}",
                 style: const TextStyle(
@@ -68,7 +69,7 @@ class _ProductsState extends State<Products> {
                 ),
               ),
               Text(
-                '${viewModel.products.data?.length ?? 0} items found for ${widget.category.name}',
+                '${viewModel.filteredProducts.length} items found',
                 style: const TextStyle(
                   color: Color(0xFF62656D),
                   fontSize: 16,
@@ -91,9 +92,9 @@ class _ProductsState extends State<Products> {
   Widget _products(ProductsProvider viewModel) {
     return ListView.builder(
       shrinkWrap: true,
-      itemCount: viewModel.products.data?.length ?? 0,
+      itemCount: viewModel.filteredProducts.length,
       itemBuilder: (context, index) {
-        var product = viewModel.products.data![index];
+        var product = viewModel.filteredProducts[index];
         return InkWell(
           onTap: () {
             Navigator.push(
@@ -114,11 +115,13 @@ class _ProductsState extends State<Products> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (product.catalogueImage != null)
-                  Image.network(
-                    product.catalogueImage!,
+                  CachedNetworkImage(
+                    imageUrl: product.catalogueImage!,
                     width: double.infinity,
                     height: 235,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
+                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                    errorWidget: (context, url, error) => const Icon(Icons.broken_image, size: 50, color: Colors.grey),
                   ),
                 Container(
                   padding: const EdgeInsets.all(10),
@@ -126,11 +129,18 @@ class _ProductsState extends State<Products> {
                     children: [
                       Row(
                         children: [
-                          Image.network(
-                            product.categoryImage ?? "https://via.placeholder.com/100",
+                          CachedNetworkImage(
+                            imageUrl: product.categoryImage ?? "https://via.placeholder.com/100",
                             width: 20,
                             height: 20,
-                            fit: BoxFit.fill,
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            ),
+                            errorWidget: (context, url, error) =>
+                                const Icon(Icons.broken_image, size: 20, color: Colors.grey),
                           ),
                           const SizedBox(width: 6),
                           Flexible(
@@ -172,15 +182,15 @@ class _ProductsState extends State<Products> {
                         children: [
                           QuantitySelector(
                             quantity: product.quantity,
-                            onIncrement: () => viewModel.incrementQuantity(index),
-                            onDecrement: () => viewModel.decrementQuantity(index),
+                            onIncrement: () => viewModel.incrementQuantity(viewModel.products.data!.indexOf(product)),
+                            onDecrement: () => viewModel.decrementQuantity(viewModel.products.data!.indexOf(product)),
                           ),
                           const Spacer(),
                           AddToCartButton(
                             context: context,
                             cart: cart,
                             products: viewModel.products,
-                            index: index,
+                            index: viewModel.products.data!.indexOf(product),
                           ),
                         ],
                       ),
@@ -197,21 +207,24 @@ class _ProductsState extends State<Products> {
 
   Widget _searchBar() {
     return Container(
-      height: 56,
+      height: 7.height,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: Colors.grey.shade300),
       ),
-      child: const Row(
+      child: Row(
         children: [
-          Icon(Icons.search, color: Colors.black54, size: 30),
-          SizedBox(width: 10),
+          const Icon(Icons.search, color: Colors.black54, size: 30),
+          const SizedBox(width: 10),
           Expanded(
             child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search by Brand, Item code',
+              onChanged: (value) {
+                viewModel.updateSearchQuery(value);
+              },
+              decoration: const InputDecoration(
+                hintText: 'Search by Name or Sample Code',
                 hintStyle: TextStyle(color: Colors.grey),
                 border: InputBorder.none,
               ),

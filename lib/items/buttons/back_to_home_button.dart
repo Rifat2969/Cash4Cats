@@ -9,10 +9,9 @@ class BackToHomeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 428,
+      width: 100.width,
       height: 86,
       color: Colors.white,
-      alignment: Alignment.center,
       child: InkWell(
         onTap: () {
           Navigator.push(
@@ -20,22 +19,24 @@ class BackToHomeButton extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const Categories()),
           );
         },
-        child: Container(
-          width: 90.width,
-          height: 56,
-          decoration: ShapeDecoration(
-            color: const Color(0xFF0053D2),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          ),
-          alignment: Alignment.center,
-          child: const Text(
-            'Back to Home',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w500,
+        child: Center(
+          child: Container(
+            width: 90.width,
+            height: 6.height,
+            decoration: ShapeDecoration(
+              color: const Color(0xFF0053D2),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+            alignment: Alignment.center,
+            child: const Text(
+              'Back to Home',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

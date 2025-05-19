@@ -28,8 +28,7 @@ class PgmPriceStrip extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.only(bottom: 2),
                       height: 8.height,
-                      width: 25.width,
-                      margin: const EdgeInsets.all(10),
+                      width: 30.width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,

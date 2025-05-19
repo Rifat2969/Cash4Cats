@@ -75,7 +75,7 @@ class _CategoriesState extends State<Categories> {
 
   Widget _searchBar(CategoryProvider viewModel) {
     return Container(
-      height: 6.height,
+      height: 7.height,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -91,7 +91,7 @@ class _CategoriesState extends State<Categories> {
               controller: viewModel.searchController,
               onChanged: (value) => viewModel.filterCategories(value),
               decoration: const InputDecoration(
-                hintText: 'Search by Brand, Item code',
+                hintText: 'Search by Brand',
                 hintStyle: TextStyle(color: Colors.grey),
                 border: InputBorder.none,
               ),

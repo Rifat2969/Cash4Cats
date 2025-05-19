@@ -2,12 +2,13 @@ import 'package:cash4cats/repository/products_repo.dart';
 import 'package:flutter/material.dart';
 
 import '../model/products_api.dart';
+import '../model/products_data.dart';
 
 class ProductsProvider extends ChangeNotifier {
   bool loader = true;
   ProductsApi products = ProductsApi();
+  String _searchQuery = "";
 
-  // Async initViewModel — sets loader delay before ready
   void initViewModel(int categoryId) async {
     await _initLoader();
     await fetchProducts(categoryId: categoryId);
@@ -26,6 +27,9 @@ class ProductsProvider extends ChangeNotifier {
     var response = await ProductsRepository().fetchProducts(categoryId: categoryId, page: 1);
     if (response != null) {
       products = response;
+      for (var product in products.data!) {
+        product.quantity = 1;
+      }
     }
 
     loader = false;
@@ -44,8 +48,28 @@ class ProductsProvider extends ChangeNotifier {
     }
   }
 
+  void updateSearchQuery(String query) {
+    _searchQuery = query;
+    notifyListeners();
+  }
+
+  List<ProductsData> get filteredProducts {
+    if (products.data == null) return [];
+
+    if (_searchQuery.isEmpty) {
+      return products.data!;
+    } else {
+      return products.data!
+          .where((product) =>
+              (product.name?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false) ||
+              (product.sampleCode?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false))
+          .toList();
+    }
+  }
+
   void disposeController() {
     products.data = null;
     loader = true;
+    _searchQuery = "";
   }
 }
