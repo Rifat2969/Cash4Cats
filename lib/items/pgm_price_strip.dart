@@ -15,7 +15,7 @@ class PgmPriceStrip extends StatelessWidget {
       child: loader
           ? const CircularProgressIndicator()
           : SizedBox(
-              height: 78,
+              height: 9.height,
               child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,

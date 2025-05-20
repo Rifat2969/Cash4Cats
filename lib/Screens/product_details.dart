@@ -1,7 +1,6 @@
 import 'package:cash4cats/Extention/number_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../items/buttons/quantity_selector.dart';
 import '../items/carousel_image_viewer.dart';
@@ -49,7 +48,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               children: [
                 const CarouselImageViewer(),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -172,7 +171,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           width: 100.width,
           height: 86,
           color: Colors.white,
@@ -219,15 +218,4 @@ class _ProductDetailsState extends State<ProductDetails> {
       ]),
     );
   }
-
-  Widget buildIndicator() => AnimatedSmoothIndicator(
-        activeIndex: viewModel.activeIndex,
-        count: 5,
-        effect: const JumpingDotEffect(
-          activeDotColor: Colors.white,
-          dotColor: Colors.grey,
-          dotHeight: 10,
-          dotWidth: 10,
-        ),
-      );
 }
