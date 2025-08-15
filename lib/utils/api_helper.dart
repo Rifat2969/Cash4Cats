@@ -1,6 +1,6 @@
 class ApiHelper {
   static String getToken() {
-    return "Bearer 333|ifaPVXyesok9Iu2rJEiaOtlhgwtUQLuDQiCE4l8m";
+    return "Bearer 351|OK9sWSdiXx8HIe2aBDLsr7WRvx7eenJrjtP9iCq8";
   }
 
   static Map<String, String> getHeaders() {
