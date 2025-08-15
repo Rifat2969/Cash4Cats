@@ -9,7 +9,6 @@ import '../items/pgm_price_strip.dart';
 import '../items/top_bar.dart';
 import '../model/cart_service.dart';
 import '../provider/category_provider.dart';
-import '../utils/size_config.dart';
 
 class Categories extends StatefulWidget {
   const Categories({super.key});
@@ -38,7 +37,6 @@ class _CategoriesState extends State<Categories> {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig.initMediaQuery(context);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),

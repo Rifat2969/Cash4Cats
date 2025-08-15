@@ -1,9 +1,10 @@
-import 'package:cash4cats/Screens/categories.dart';
 import 'package:cash4cats/items/localization.dart';
 import 'package:cash4cats/provider/providers.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'Screens/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      home: const Categories(),
+      home: const LoginScreen(),
     );
   }
 }

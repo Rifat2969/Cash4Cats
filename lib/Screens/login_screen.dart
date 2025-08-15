@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../bottom_sheets/language_sheet.dart';
 import '../provider/login_provider.dart';
 import '../screens/splash_screen.dart';
+import '../utils/size_config.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,6 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig.initMediaQuery(context);
+
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -133,23 +136,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 30),
                     GestureDetector(
-                      onTap: modelData.isValid && !modelData.isLoading
-                          ? () async {
-                              final success = await modelData.login();
-                              if (success && context.mounted) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(builder: (_) => const Categories()),
-                                );
-                              } else {
-                                if (context.mounted) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("Invalid credentials")),
-                                  );
-                                }
-                              }
-                            }
-                          : null,
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => const Categories()),
+                        );
+                      },
                       child: Container(
                         width: 100.width,
                         height: 50,
