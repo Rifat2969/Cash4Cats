@@ -14,7 +14,7 @@ class ProductsRepository {
     try {
       var apiResponse = await http.get(
         Uri.parse(endPoint),
-        headers: ApiHelper.getHeaders(),
+        headers: await ApiHelper.getHeaders(),
       );
 
       if (apiResponse.statusCode == 200) {

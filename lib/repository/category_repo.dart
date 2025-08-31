@@ -14,7 +14,7 @@ class CategoryRepository {
     try {
       final response = await http.get(
         Uri.parse(endPoint),
-        headers: ApiHelper.getHeaders(),
+        headers: await ApiHelper.getHeaders(),
       );
       if (response.statusCode == 200) {
         return CategoryApi.fromJson(json.decode(response.body));

@@ -1,5 +1,6 @@
 import 'package:cash4cats/model/pgm_price_api.dart';
 import 'package:cash4cats/repository/pgm_price_repo.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class LoginProvider extends ChangeNotifier {
@@ -15,6 +16,7 @@ class LoginProvider extends ChangeNotifier {
   bool isLoading = false;
 
   List<int> get pgmlist => _pgmlist;
+
   Future<void> initViewModel() async {
     loader = true;
     notifyListeners();
@@ -55,26 +57,22 @@ class LoginProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  /*Future<void> login(BuildContext context) async {
-    isLoading = true;
-    notifyListeners();
-
-    await Future.delayed(const Duration(seconds: 2));
-
-    isLoading = false;
-    notifyListeners();
-    debugPrint("Login executed with ${emailController.text}");
-  }*/
-
   Future<bool> login() async {
     isLoading = true;
     notifyListeners();
 
     try {
-      await Future.delayed(const Duration(seconds: 2)); // simulate API call
+      await Future.delayed(const Duration(seconds: 1)); // simulate API call
 
-      // Simulate login check:
-      if (emailController.text.trim() == "admin" && passwordController.text == "1234") {
+      // Validate email format
+      if (!EmailValidator.validate(emailController.text.trim())) {
+        debugPrint("Invalid email format");
+        isLoading = false;
+        notifyListeners();
+        return false;
+      }
+
+      if (emailController.text.trim() == "xyz@gmail.com" && passwordController.text == "rt46169t@") {
         debugPrint("Login successful for ${emailController.text}");
         isLoading = false;
         notifyListeners();
@@ -93,7 +91,7 @@ class LoginProvider extends ChangeNotifier {
     }
   }
 
-  bool get isValid => emailController.text.trim().isNotEmpty && passwordController.text.trim().isNotEmpty;
+  bool get isValid => EmailValidator.validate(emailController.text.trim()) && passwordController.text.trim().isNotEmpty;
 
   @override
   void dispose() {

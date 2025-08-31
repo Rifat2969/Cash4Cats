@@ -8,7 +8,6 @@ class ProductDetailsProvider with ChangeNotifier {
   final int initialDisplay = 5;
   bool loader = true;
 
-  // Async initialization, like other viewmodels
   void initViewModel() => _initLoader();
 
   Future<void> _initLoader() async {

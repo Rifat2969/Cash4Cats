@@ -136,11 +136,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 30),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => const Categories()),
-                        );
+                      onTap: () async {
+                        if (!modelData.isValid) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Please enter a valid email & password")),
+                          );
+                          return;
+                        }
+
+                        final success = await modelData.login();
+                        if (!mounted) return;
+
+                        if (success) {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (_) => const Categories()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Invalid credentials")),
+                          );
+                        }
                       },
                       child: Container(
                         width: 100.width,

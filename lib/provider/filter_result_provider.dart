@@ -10,7 +10,6 @@ class FilterResultProvider extends ChangeNotifier {
   final Cart cart = Cart();
   bool loader = true;
 
-  // Async ViewModel initialization
   void initViewModel() => _initLoader();
 
   Future<void> _initLoader() async {
